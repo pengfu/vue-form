@@ -1,18 +1,59 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <Form :rules="rules" ref="loginForm">
+      <FormItem label="用户名" prop="userName">
+        <Input v-model="user.userName" />
+      </FormItem>
+      <FormItem label="密码" prop="password">
+        <Input v-model="user.password" type="password" />
+      </FormItem>
+      <FormItem>
+        <button @click="submit">登录</button>
+      </FormItem>
+    </Form>
+    {{ user }}
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+import Form from './components/Form'
+import FormItem from './components/FormItem'
+import Input from './components/Input'
 
 export default {
   name: 'App',
+  data() {
+    return {
+      user: {
+        userName: 'zhangsan',
+        password: 'abc123',
+      },
+      rules: {
+        userName: [{ required: true }],
+        password: [{ required: true }],
+      },
+    }
+  },
+  methods: {
+    submit() {
+      this.$refs.loginForm.validateFields((err) => {
+        if (!err) {
+          alert('执行登录')
+        } else {
+          alert('有错')
+        }
+      })
+    },
+  },
   components: {
-    HelloWorld
-  }
+    // HelloWorld
+    Form,
+    FormItem,
+    Input,
+  },
 }
 </script>
 
