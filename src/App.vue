@@ -1,8 +1,7 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <Form :rules="rules" ref="loginForm">
+    
+    <Form :model="user" :rules="rules" ref="loginForm">
       <FormItem label="用户名" prop="userName">
         <Input v-model="user.userName" />
       </FormItem>
@@ -18,7 +17,6 @@
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import Form from './components/Form'
 import FormItem from './components/FormItem'
 import Input from './components/Input'
@@ -32,8 +30,8 @@ export default {
         password: 'abc123',
       },
       rules: {
-        userName: [{ required: true }],
-        password: [{ required: true }],
+        userName: { required: true },
+        password: { required: true },
       },
     }
   },
@@ -43,13 +41,12 @@ export default {
         if (!err) {
           alert('执行登录')
         } else {
-          alert('有错')
+          alert(`有错: ${JSON.stringify(err)}`)
         }
       })
     },
   },
   components: {
-    // HelloWorld
     Form,
     FormItem,
     Input,
